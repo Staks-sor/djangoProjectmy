@@ -12,7 +12,7 @@
     <div>
         <p>{{ item.title }}</p>
         <p>{{ item.content }}</p>
-        <p>{{ item.created_at }}</p>
+        <p>{{ item.created_at|date:'H:i d.m.Y' }}</p>
     </div>
     <hr>
 {% endfor %}
