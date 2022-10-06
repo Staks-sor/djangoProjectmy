@@ -26,14 +26,21 @@
 
 <div class="container mt-3">
     <h1>{{ title }}</h1>
+
     <div class="row">
         <div class="col-md-12">
             {% for item in news %}
             <div class="card mb-3">
-                <h5 class="card-header">Категория: {{ item.category.title }}</h5>
+                <h5 class="card-header">
+
+                    Категория: {{ item.category.title }}</h5>
                 <div class="card-body">
+
                     <h5 class="card-title">{{ item.title }}</h5>
                     <p class="card-text">{{ item.content }}</p>
+<!--                    {%  load static %}-->
+<!--                    <img src=" {% static 'item.photo' %}">-->
+
                     <a href="test" class="btn btn-primary">Read more...</a>
                 </div>
                 <div class="card-footer text-muted">
