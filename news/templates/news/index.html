@@ -35,13 +35,18 @@
 
                     Категория: {{ item.category.title }}</h5>
                 <div class="card-body">
-
-                    <h5 class="card-title">{{ item.title }}</h5>
-                    <p class="card-text">{{ item.content }}</p>
-<!--                    {%  load static %}-->
-<!--                    <img src=" {% static 'item.photo' %}">-->
-
-                    <a href="test" class="btn btn-primary">Read more...</a>
+                    <div class="media">
+                        {% if item.photo %}
+                            <img src="{{ item.photo.url }}" alt="" width="400"  class="mr-4">
+                        {% else %}
+                            <img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg" alt="" width="400"  class="mr-4">
+                        {% endif %}
+                        <div class="media-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">{{ item.content|linebreaks }}</p>
+                            <a href="test" class="btn btn-primary">Read more...</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer text-muted">
                     {{ item.created_at|date:"d.m.Y H:i" }}
