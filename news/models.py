@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class News(models.Model):
@@ -20,7 +21,18 @@ class News(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=150, db_index=True, verbose_name='Название категории')
+    title = models.CharField(
+        max_length=150, db_index=True,
+        verbose_name='Название категории'
+    )
+
+    def get_absolut_url(self):
+        # """Первый параметр имя маршрута который написан в урлс
+        #  второй параметр для построения данного маршрута"""
+        return reverse(
+            'category',
+            kwargs={"category_id": self.pk, }
+        )
 
     def __str__(self):
         return self.title
