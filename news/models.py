@@ -11,7 +11,7 @@ class News(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         # """Первый параметр имя маршрута который написан в урлс
         #  второй параметр для построения данного маршрута"""
         return reverse(
@@ -34,7 +34,7 @@ class Category(models.Model):
         verbose_name='Название категории'
     )
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         # """Первый параметр имя маршрута который написан в урлс
         #  второй параметр для построения данного маршрута"""
         return reverse(
