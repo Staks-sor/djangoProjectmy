@@ -4,3 +4,13 @@ body{
 .errorlist{
     color: red;
 }
+.btn  {
+    position: absolute;
+    bottom: 60px;
+    right: 50px;
+    left: 50%;
+    text-align: center;
+}
+.card-title {
+    text-align: center;
+}

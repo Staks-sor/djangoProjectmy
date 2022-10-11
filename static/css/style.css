@@ -4,3 +4,7 @@ body{
 .errorlist{
     color: red;
 }
+button {
+  margin: 0 auto;
+  display: block;
+}
