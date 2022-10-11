@@ -9,6 +9,7 @@ class HomeNews(ListView):
     model = News
     template_name = 'news/index.html'
     context_object_name = 'news'
+
     # extra_context = {'title': 'Главная'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -19,23 +20,42 @@ class HomeNews(ListView):
     def get_queryset(self):
         return News.objects.filter(is_published=True)
 
-def index(request):
-    news = News.objects.all()
-    context = {
-        'news': news,
-        'title': 'Список новостей',
-    }
-    return render(request, template_name='news/index.html', context=context)
+
+class NewsByCategory(ListView):
+    model = News
+    template_name = 'news/index.html'
+    context_object_name = 'news'
+
+    allow_empty = False
+
+    if allow_empty == False:
+        template_name = 'news/index.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        return context
+
+    def get_queryset(self):
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+
+# def index(request):
+#     news = News.objects.all()
+#     context = {
+#         'news': news,
+#         'title': 'Список новостей',
+#     }
+#     return render(request, template_name='news/index.html', context=context)
 
 
-def get_category(request, category_id):
-    news = News.objects.filter(category_id=category_id)
-    category = Category.objects.get(pk=category_id)
-    context = {
-        'news': news,
-        'category': category,
-    }
-    return render(request, template_name='news/category.html', context=context)
+# def get_category(request, category_id):
+#     news = News.objects.filter(category_id=category_id)
+#     category = Category.objects.get(pk=category_id)
+#     context = {
+#         'news': news,
+#         'category': category,
+#     }
+#     return render(request, template_name='news/category.html', context=context)
 
 
 def view_news(request, news_id):
