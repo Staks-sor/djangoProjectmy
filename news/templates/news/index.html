@@ -28,9 +28,9 @@
                 {% endif %}
 
                     <h5 class="card-title">{{ item.title }}</h5>
-
+                    <div>
                     <p class="card-text">{{ item.content|linebreaks|truncatewords:50 }}</p>
-
+                    </div>
                     <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать новость полностью ...</a>
 
 
