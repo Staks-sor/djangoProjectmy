@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import News, Category
 from .forms import NewsForm
@@ -25,11 +25,7 @@ class NewsByCategory(ListView):
     model = News
     template_name = 'news/index.html'
     context_object_name = 'news'
-
     allow_empty = False
-
-    if allow_empty == False:
-        template_name = 'news/index.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,6 +34,13 @@ class NewsByCategory(ListView):
 
     def get_queryset(self):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+
+
+class ViewNews(DetailView):
+    model = News
+    template_name = 'news/view_news.html'
+    context_object_name = 'news_item'
+
 
 # def index(request):
 #     news = News.objects.all()
@@ -58,11 +61,11 @@ class NewsByCategory(ListView):
 #     return render(request, template_name='news/category.html', context=context)
 
 
-def view_news(request, news_id):
-    # news_item = News.objects.get(pk=news_id)
-    news_item = get_object_or_404(News, pk=news_id)
-
-    return render(request, 'news/view_news.html', {"news_item": news_item})
+# def view_news(request, news_id):
+#     # news_item = News.objects.get(pk=news_id)
+#     news_item = get_object_or_404(News, pk=news_id)
+#
+#     return render(request, 'news/view_news.html', {"news_item": news_item})
 
 
 def add_news(request):

@@ -16,7 +16,7 @@ class News(models.Model):
         #  второй параметр для построения данного маршрута"""
         return reverse(
             'view_news',
-            kwargs={"news_id": self.pk, }
+            kwargs={"pk": self.pk, }
         )
 
     def __str__(self):
