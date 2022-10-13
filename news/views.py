@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import News, Category
 from .forms import NewsForm
+
+"""Класс главной страницы """
 
 
 class HomeNews(ListView):
@@ -21,6 +23,9 @@ class HomeNews(ListView):
         return News.objects.filter(is_published=True)
 
 
+"""Класс категорий"""
+
+
 class NewsByCategory(ListView):
     model = News
     template_name = 'news/index.html'
@@ -36,12 +41,21 @@ class NewsByCategory(ListView):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
 
 
+"""Класс отоброжения контента"""
+
+
 class ViewNews(DetailView):
     model = News
     template_name = 'news/view_news.html'
     context_object_name = 'news_item'
 
 
+"""Класс создания новости"""
+
+
+class CreateNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
 # def index(request):
 #     news = News.objects.all()
 #     context = {
@@ -68,14 +82,14 @@ class ViewNews(DetailView):
 #     return render(request, 'news/view_news.html', {"news_item": news_item})
 
 
-def add_news(request):
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            # news = News.objects.create(**form.cleaned_data)
-            news = form.save()
-            return redirect(news)
-    else:
-        form = NewsForm()
-    return render(request, 'news/add_news.html', {'form': form})
+# def add_news(request):
+#     if request.method == 'POST':
+#         form = NewsForm(request.POST)
+#         if form.is_valid():
+#             # print(form.cleaned_data)
+#             # news = News.objects.create(**form.cleaned_data)
+#             news = form.save()
+#             return redirect(news)
+#     else:
+#         form = NewsForm()
+#     return render(request, 'news/add_news.html', {'form': form})
