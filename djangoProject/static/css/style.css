@@ -4,13 +4,15 @@ body{
 .errorlist{
     color: red;
 }
-/*.btn  {*/
-/*    position: absolute;*/
-/*    bottom: 60px;*/
-/*    right: 50px;*/
-/*    left: 50%;*/
-/*    text-align: center;*/
+/*.content  {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    flex-direction: column;*/
+
 /*}*/
-/*.card-title {*/
-/*    text-align: center;*/
-/*}*/
+/*!*.button{*!*/
+/*!*    display: flex;*!*/
+/*!*    justify-content: space-between;*!*/
+/*!*    flex-direction: column;*!*/
+/*!*    left: 20px;*!*/
+/*!*}*!*/

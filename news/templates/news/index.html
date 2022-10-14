@@ -12,11 +12,9 @@
     {% for item in news %}
     <div class="card mb-3">
         <div class="card-header">
-
             Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
         </div>
         <div class="card-body">
-
                 {% if item.photo %}
                     <div >
                     <img src="{{ item.photo.url }}" alt="" width="350" height="300" class="float-start mr-3">
@@ -26,13 +24,14 @@
                     <img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg" alt="" width="350" height="300" class="float-start mr-3">
                     </div>
                 {% endif %}
-
+                <div class="content">
                     <h5 class="card-title">{{ item.title }}</h5>
-                    <div>
-                    <p class="card-text">{{ item.content|linebreaks|truncatewords:50 }}</p>
-                    </div>
-                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать новость полностью ...</a>
 
+                    <p class="card-text">{{ item.content|linebreaks|truncatewords:50 }}</p>
+                    <div class="button">
+                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать новость полностью ...</a>
+                    </div>
+                </div>
 
         </div>
         <div class="card-footer text-muted">
