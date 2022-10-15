@@ -18,9 +18,10 @@
             {% else %}
             <img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg" alt="" width="350"  class="float-start mr-3">
             {% endif %}
-            <h5 class="card-title">{{ news_item.title }}</h5>
-            <p class="card-text">{{ news_item.content|linebreaks}}</p>
         </div>
+             <h5 class="card-title">{{ news_item.title }}</h5>
+             <p class="card-text">{{ news_item.content|linebreaks}}</p>
+
         <div class="card-footer text-muted">
             {{ news_item.created_at|date:"d.m.Y H:i" }}
         </div>
