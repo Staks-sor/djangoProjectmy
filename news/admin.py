@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import News, Category
 
@@ -11,6 +12,7 @@ class NewsAdmin(admin.ModelAdmin):
         'created_at',
         'update_at',
         'is_published',
+        'get_photo',
     )
     list_display_links = (
         'id', 'title'
@@ -26,6 +28,12 @@ class NewsAdmin(admin.ModelAdmin):
         'is_published',
         'category'
     )
+
+    def get_photo(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="25">')
+        else:
+            return 'Рандомное фото'
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -44,3 +52,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(News, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
+
+admin.site.site_title = 'Админка епт'
+admin.site.site_header = 'Какая то хуйня)'
