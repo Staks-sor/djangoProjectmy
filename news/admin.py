@@ -29,11 +29,33 @@ class NewsAdmin(admin.ModelAdmin):
         'category'
     )
 
+    fields = (
+        'title',
+        'category',
+        'content',
+        'photo',
+        'get_photo',
+        'is_published',
+        'views',
+        'created_at',
+        'update_at',
+    )
+
+    readonly_fields = (
+        'get_photo',
+        'views',
+        'created_at',
+        'update_at',
+    )
+    save_on_top = True
+
     def get_photo(self, obj):
         if obj.photo:
             return mark_safe(f'<img src="{obj.photo.url}" width="25">')
         else:
             return 'Рандомное фото'
+
+    get_photo.short_description = 'Фото'
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -52,6 +74,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(News, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
-
+"""Костыль времени"""
+from datetime import datetime
+from pytz import timezone
 admin.site.site_title = 'Админка епт'
-admin.site.site_header = 'Какая то хуйня)'
+tz = timezone('Europe/Moscow')
+dt = datetime.now(tz=tz)
+hh = dt.strftime('Время:  %H:%M Дата: %d.%m.%Y года')
+admin.site.site_header = f'Админ панель   {hh}'
+
