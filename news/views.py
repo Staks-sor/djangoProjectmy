@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import NewsForm
 from .models import News, Category
@@ -15,7 +16,7 @@ class HomeNews(MyMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Главная страница'
+        context['title'] = self.get_upper('Главная страница')
         context['mixin_prop'] = self.get_prop()
         return context
 
@@ -26,7 +27,7 @@ class HomeNews(MyMixin, ListView):
 """Класс категорий"""
 
 
-class NewsByCategory(ListView):
+class NewsByCategory(MyMixin, ListView):
     model = News
     template_name = 'news/index.html'
     context_object_name = 'news'
@@ -34,7 +35,7 @@ class NewsByCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
         return context
 
     def get_queryset(self):
@@ -53,9 +54,10 @@ class ViewNews(DetailView):
 """Класс создания новости"""
 
 
-class CreateNews(CreateView):
+class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'news/add_news.html'
+    login_url = '/admin/'
 # def index(request):
 #     news = News.objects.all()
 #     context = {
