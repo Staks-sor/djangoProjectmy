@@ -1,22 +1,22 @@
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import News, Category
-from .forms import NewsForm
 
+from .forms import NewsForm
+from .models import News, Category
+from .utils import MyMixin
 """Класс главной страницы """
 
 
-class HomeNews(ListView):
+class HomeNews(MyMixin, ListView):
     model = News
     template_name = 'news/index.html'
     context_object_name = 'news'
-
+    mixin_prop = 'Hello world'
     # extra_context = {'title': 'Главная'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная страница'
+        context['im'] = self.get_prop()
         return context
 
     def get_queryset(self):
