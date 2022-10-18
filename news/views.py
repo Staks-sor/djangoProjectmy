@@ -16,7 +16,7 @@ class HomeNews(MyMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная страница'
-        context['im'] = self.get_prop()
+        context['mixin_prop'] = self.get_prop()
         return context
 
     def get_queryset(self):
