@@ -4,6 +4,10 @@ body{
 .errorlist{
     color: red;
 }
+
+#navbarSupportedContent{
+    text-align: left;
+}
 /*.content  {*/
 /*    display: flex;*/
 /*    justify-content: space-between;*/

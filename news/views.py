@@ -1,11 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 from .forms import NewsForm
 from .models import News, Category
 from .utils import MyMixin
+
+"""Регистрация"""
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserCreationForm()
+    return render(request, 'news/register.html', {"form": form})
+
+
+"""Авторизация пользователя"""
+
+
+def login(request):
+    return render(request, 'news/login.html')
+
 
 """Класс главной страницы """
 
@@ -46,6 +72,7 @@ class NewsByCategory(MyMixin, ListView):
     context_object_name = 'news'
     allow_empty = False
     paginate_by = 5
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
