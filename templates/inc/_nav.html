@@ -8,7 +8,14 @@
         </ul>
 
             <span class="navbar-text">
-                <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a>
+                {% if request.user.is_authenticated %}
+                    Добро пожаловать, {{ user.username }}| <a href="{% url 'logout' %}">Выход</a>
+                {% else %}
+                    <div class="ml-4">
+                    <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a>
+                    </div>
+                {% endif %}
+
             </span>
     </div>
 </nav>
